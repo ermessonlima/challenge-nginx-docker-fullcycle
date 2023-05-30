@@ -1,5 +1,4 @@
 version: '3'
-
 services:
   db:
     image: mysql:8.0
@@ -8,20 +7,18 @@ services:
       MYSQL_DATABASE: fullcycle
     volumes:
       - db_data:/var/lib/mysql
-
   app:
     build: ./app
     volumes:
       - ./app:/usr/src/app
+      - /usr/src/app/node_modules
     depends_on:
       - db
-
   nginx:
     build: ./nginx
     ports:
       - 8080:80
     depends_on:
       - app
-
 volumes:
   db_data:
